@@ -2,6 +2,8 @@ import fs from "fs";
 import { Memo } from "./Memo.js";
 
 export class MemoRepository {
+  static JSON_INDENT_SPACES = 2;
+
   constructor(filePath = "memos.json") {
     this.filePath = filePath;
   }
@@ -17,7 +19,7 @@ export class MemoRepository {
   }
 
   save(memos) {
-    const data = JSON.stringify(memos, null, 2);
+    const data = JSON.stringify(memos, null, MemoRepository.JSON_INDENT_SPACES);
     fs.writeFileSync(this.filePath, data, "utf-8");
   }
 

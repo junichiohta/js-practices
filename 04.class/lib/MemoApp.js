@@ -49,6 +49,13 @@ export class MemoApp {
     });
   }
 
+  createChoices(memos) {
+    return memos.map((memo) => ({
+      name: memo.id,
+      message: memo.getFirstLine(),
+    }));
+  }
+
   async read() {
     const memos = this.repository.list();
     if (memos.length === 0) {
@@ -56,10 +63,7 @@ export class MemoApp {
       return;
     }
 
-    const choices = memos.map((memo) => ({
-      name: memo.id,
-      message: memo.getFirstLine(),
-    }));
+    const choices = this.createChoices(memos);
 
     const response = await enquirer.prompt({
       type: "select",
@@ -79,10 +83,7 @@ export class MemoApp {
       return;
     }
 
-    const choices = memos.map((memo) => ({
-      name: memo.id,
-      message: memo.getFirstLine(),
-    }));
+    const choices = this.createChoices(memos);
 
     const response = await enquirer.prompt({
       type: "select",
